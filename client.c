@@ -119,8 +119,6 @@ int fd;  /* socket */
 struct sockaddr_in server;  /* server address */
 
 /* objects */
-struct object_list objects;
-struct object_list *last_obj;
 struct it* hero;
 
 /* important sprites */

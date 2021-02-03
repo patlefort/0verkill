@@ -100,13 +100,6 @@ struct queue_list
 }time_queue;
 
 
-/* list of objects */
-struct object_list objects;
-
-struct player_list *last_player;
-struct object_list *last_obj;
-
-
 #ifdef WIN32
 	#define	SERVICE_NAME			"0verkill_017"
 	#define	SERVICE_DISP_NAME		"0verkill Server 0.17"

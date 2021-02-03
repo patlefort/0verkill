@@ -40,6 +40,10 @@ struct sprite *sprites=DUMMY;
 char **sprite_names=DUMMY;
 int n_sprites;  /* number of sprites */
 
+/* list of objects */
+struct object_list objects;
+
+struct player_list *last_player;
 struct object_list *last_obj;
 
 #define NOBODY 0

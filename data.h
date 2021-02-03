@@ -139,7 +139,7 @@
 
 #define ARMS 8
 
-unsigned char *weapon_name[ARMS];
+extern unsigned char *weapon_name[ARMS];
 
 /* STATUS
 0: walk
@@ -156,7 +156,7 @@ unsigned char *weapon_name[ARMS];
 
 
 /* object attribute table */
-struct obj_attr_type
+extern struct obj_attr_type
 {
 	unsigned char fall;   /* 1=can fall, 0=can't */
 	int bounce_x,bounce_y;  /* slow down during horizontal/vertical bouncing */
@@ -172,7 +172,7 @@ struct obj_attr_type
 
 
 /* weapon attribut table */
-struct weapon_type
+extern struct weapon_type
 {
 	char *name;
 	unsigned char cadence;
@@ -211,7 +211,9 @@ struct object_list
         struct it member;
 };
 
+extern struct object_list objects;
 
+extern struct player_list *last_player;
 extern struct object_list *last_obj;
 
 extern struct sprite *sprites;

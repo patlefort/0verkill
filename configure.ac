@@ -22,18 +22,15 @@ dnl Replace `main' with a function in -lm:
 AC_CHECK_LIB(m, main)
 
 dnl Checks for header files.
-AC_HEADER_STDC
 AC_CHECK_HEADERS(fcntl.h sys/ioctl.h sys/time.h unistd.h linux/vt.h linux/kd.h siginfo.h float.h sys/select.h)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 AC_C_INLINE
-AC_HEADER_TIME
 AC_STRUCT_TM
 
 dnl Checks for library functions.
 AC_PROG_GCC_TRADITIONAL
-AC_TYPE_SIGNAL
 AC_CHECK_FUNCS(gettimeofday select strtol strtoul getopt psignal access)
 
 AC_CHECK_FUNC(random, cf_result=yes, cf_result=no)
