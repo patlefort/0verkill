@@ -120,9 +120,7 @@ void load_room(char * filename)
 
 	if (!(stream=fopen(filename,"rb")))
 	{
-		char msg[256];
-		snprintf(msg,sizeof(msg),"Can't open file \"%s\"!\n",filename);
-		ERROR(msg);
+		ERROR("Can't open file \"%s\"!\n",filename);
 		EXIT(1);
 	}
 	while(fgets(line,1024,stream))
@@ -141,9 +139,7 @@ void load_room(char * filename)
 		y=strtol(q,&p,0);
 		if (find_sprite(name,&n))
 		{
-			char msg[256];
-			snprintf(msg,sizeof(msg),"Unknown bitmap name \"%s\"!\n",name);
-			ERROR(msg);
+			ERROR("Unknown bitmap name \"%s\"!\n",name);
 			EXIT(1);
 		}
 		new_obj(id,t,0,n,0,0,x,y,0,0,0);
@@ -272,9 +268,7 @@ void save_data(void)
 	data=fopen(txt,"w");
 	if (!data)
 	{
-		char msg[256];
-		snprintf(msg,256,"Can't create file \"%s\"\n",txt);
-		ERROR(msg);
+		ERROR("Can't create file \"%s\"\n",txt);
 		EXIT(1);
 	}
 	
@@ -283,9 +277,7 @@ void save_data(void)
 	dynamic=fopen(txt,"w");
 	if (!dynamic)
 	{
-		char msg[256];
-		snprintf(msg,256,"Can't create file \"%s\"\n",txt);
-		ERROR(msg);
+		ERROR("Can't create file \"%s\"\n",txt);
 		EXIT(1);
 	}
 	

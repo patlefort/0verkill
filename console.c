@@ -94,8 +94,7 @@ void my_print(char *str)
 void c_refresh(void)
 {
 #ifdef SCREEN_BUFFERING
-	ssize_t ret = 0;
-	ret = write(1,screen_buffer,screen_buffer_pos);
+	write(1,screen_buffer,screen_buffer_pos);
 	screen_buffer_pos=0;
 #else
 	fflush(stdout);
@@ -154,12 +153,12 @@ void c_shutdown(void)
 /* move cursor to [x,y] */
 void c_goto(int x,int y)
 {
-	char txt[16];
+	char txt[32];
 
 #ifdef TRI_D
 	if (TRI_D_ON&&tri_d)x+=screen_width;
 #endif
-	snprintf(txt,16,"\033[%d;%dH",y+1,x+1);
+	snprintf(txt,32,"\033[%d;%dH",y+1,x+1);
 	my_print(txt);
 }
 
@@ -167,9 +166,9 @@ void c_goto(int x,int y)
 /* set complete foreground color */
 void c_setcolor(unsigned char a)
 {
-	char txt[16];
+	char txt[32];
 	a&=15;
-	snprintf(txt,16,"\033[%c;%dm",(a>>3)+'0',30+(a&7));
+	snprintf(txt,32,"\033[%c;%dm",(a>>3)+'0',30+(a&7));
 	my_print(txt);
 }
 
@@ -177,10 +176,10 @@ void c_setcolor(unsigned char a)
 /* set complete foreground color and background color */
 void c_setcolor_bg(unsigned char fg,unsigned char bg)
 {
-	char txt[16];
+	char txt[32];
 	fg&=15;
-	if (!(fg>>3)&&!bg) snprintf(txt,16,"\033[%c;%dm",(fg>>3)+'0',30+(fg&7));
-	else snprintf(txt,16,"\033[%c;%d;%dm",(fg>>3)+'0',40+(bg&7),30+(fg&7));
+	if (!(fg>>3)&&!bg) snprintf(txt,32,"\033[%c;%dm",(fg>>3)+'0',30+(fg&7));
+	else snprintf(txt,32,"\033[%c;%d;%dm",(fg>>3)+'0',40+(bg&7),30+(fg&7));
 	my_print(txt);
 }
 
@@ -188,8 +187,8 @@ void c_setcolor_bg(unsigned char fg,unsigned char bg)
 /* set background color */
 void c_setbgcolor(unsigned char a)
 {
-	char txt[16];
-	snprintf(txt,16,"\033[%dm",40+(a&7));
+	char txt[32];
+	snprintf(txt,32,"\033[%dm",40+(a&7));
 	my_print(txt);
 }
 
@@ -204,9 +203,9 @@ void c_sethlt(unsigned char a)
 /* set highlight and background color */
 void c_sethlt_bg(unsigned char hlt,unsigned char bg)
 {
-	char txt[16];
+	char txt[32];
 	
-	snprintf(txt,16,"\033[%d;%dm",hlt&1,40+(bg&7));
+	snprintf(txt,32,"\033[%d;%dm",hlt&1,40+(bg&7));
 	my_print(txt);
 }
 
@@ -223,9 +222,9 @@ void c_setcolor_3b(unsigned char a)
 /* set 3 bit foreground color and background color*/
 void c_setcolor_3b_bg(unsigned char fg,unsigned char bg)
 {
-	char txt[16];
+	char txt[32];
 
-	snprintf(txt,16,"\033[%d;%dm",30+(fg&7),40+(bg&7));
+	snprintf(txt,32,"\033[%d;%dm",30+(fg&7),40+(bg&7));
 	my_print(txt);
 }
 

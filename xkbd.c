@@ -175,10 +175,9 @@ void signal_handler(int);
 int keycode2keysym (XKeyEvent* e)
 {
 	KeySym ks;
-	int  nbytes;
 	static char str[256+1];
 
-	nbytes = XLookupString (e, str, 256, &ks, NULL);
+	XLookupString (e, str, 256, &ks, NULL);
 	if (ks == NoSymbol)
 		return 0;
 
@@ -373,6 +372,8 @@ int kbd_update(void)
 					event.xclient.data.l[0]!=(signed)x_delete_window_atom
 					)
 					break;
+				
+				[[fallthrough]];
 	
 				/* This event is destroy window event from window manager */
 	
@@ -388,6 +389,8 @@ int kbd_update(void)
 				case ConfigureNotify:  /* window was resized */
 				x_width=event.xconfigure.width/FONT_X_SIZE;
 				x_height=event.xconfigure.height/FONT_Y_SIZE;
+				
+				[[fallthrough]];
 	
 				case Expose: /* window was exposed - redraw it */
 #ifdef SIGWINCH

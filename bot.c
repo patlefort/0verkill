@@ -515,8 +515,7 @@ static void change_level(void)
 	reinit_area();
 
 	LEVEL=load_level(level_number);
-	snprintf(txt,256,"Loading level \"%s\".\n",LEVEL);
-	ERROR(txt);
+	ERROR("Loading level \"%s\".\n",LEVEL);
 	snprintf(txt,256,"%s%s%s",DATA_PATH,LEVEL,LEVEL_SPRITES_SUFFIX);
 	load_sprites(txt);
 	snprintf(txt,256,"%s%s%s",DATA_PATH,LEVEL,STATIC_DATA_SUFFIX);
@@ -879,6 +878,8 @@ static int process_packet(char *packet,int l)
 		else printf("Game terminated by %s.\n",packet+1);
 		n=2+strlen(packet+1);
 		shut_down(1);
+		
+		[[fallthrough]];
 
 		case P_INFO:
 		if (l<=5)break;
@@ -1138,12 +1139,12 @@ int main(int argc,char **argv)
 #endif
 
 	ERROR("Resolving server address ...\n");
-	if ((m=find_server(host,port))){ERROR(m);EXIT(1);}
+	if ((m=find_server(host,port))){ERROR("%s", m);EXIT(1);}
 	ERROR("Initializing socket ...\n");
-	if ((m=init_socket())){ERROR(m);EXIT(1);}
+	if ((m=init_socket())){ERROR("%s", m);EXIT(1);}
 	ERROR("Contacting server ...\n");
 	color=(random()%15)+1;
-	if ((m=contact_server(color,select_name()))){ERROR(m);EXIT(1);}
+	if ((m=contact_server(color,select_name()))){ERROR("%s", m);EXIT(1);}
 
 	connected=1;
 	ERROR("OK, connected.\nPlaying...\n");

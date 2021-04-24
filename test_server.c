@@ -163,6 +163,7 @@ static void parse_command_line(int argc,char **argv)
                 {
 			case 'T':
 			toplist = 1;
+			break;
 			case 'v':
 			verbose = 1;
 			break;

@@ -147,10 +147,10 @@ extern int tri_d;
 	#undef ERROR
 	#ifdef SERVER
 		extern int			consoleApp;
-		#define ERROR(a)	{if (!console_ok)c_shutdown();if(consoleApp)fprintf(stderr,a);}
+		#define ERROR(...)	{if (!console_ok)c_shutdown();if(consoleApp)fprintf(stderr,__VA_ARGS__);}
 		#define EXIT(a)		{if (!consoleApp)ReportStatusToSCMgr(SERVICE_STOPPED, NO_ERROR, 0);exit(a);}
 	#else
-		#define ERROR(a)	{if (!console_ok)c_shutdown();fprintf(stderr,a);}
+		#define ERROR(...)	{if (!console_ok)c_shutdown();fprintf(stderr,__VA_ARGS__);}
 		#define EXIT(a)		{exit(a);}
 	#endif
 	#define random		rand
@@ -163,9 +163,9 @@ extern int tri_d;
 
 	#define long_long	long long
 	#ifdef CLIENT
-		#define ERROR(a)	{if (!console_ok)c_shutdown();fprintf(stderr,a);}
+		#define ERROR(...)	{if (!console_ok)c_shutdown();fprintf(stderr,__VA_ARGS__);}
 	#else
-		#define ERROR(a)	{fprintf(stderr,a);}
+		#define ERROR(...)	{fprintf(stderr,__VA_ARGS__);}
 	#endif
 
 	#include <stdlib.h>

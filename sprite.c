@@ -192,9 +192,7 @@ void load_sprite(char * filename,struct sprite *s)
 	if (fopen_s(&f,filename,"rb") != 0)
 #endif
 	{
-		char msg[256];
-		snprintf(msg,256,"Error opening file \"%s\"!\n",filename);
-		ERROR(msg);
+		ERROR("Error opening file \"%s\"!\n",filename);
 		EXIT(1);
 	}
 	while(fgets(buffer,8191,f))
@@ -212,9 +210,7 @@ void load_sprite(char * filename,struct sprite *s)
 			case 'p':
 			if (step!=0&&step!=3)
 			{
-				char msg[256];
-				snprintf(msg,256,"Syntax error in file \"%s\".\n",filename);
-				ERROR(msg);
+				ERROR("Syntax error in file \"%s\".\n",filename);
 				EXIT(1);
 			}
 			step=1;
@@ -236,9 +232,7 @@ void load_sprite(char * filename,struct sprite *s)
 			case 'l':
 			if (step!=1&&step!=3)
 			{
-				char msg[256];
-				snprintf(msg,256,"Syntax error in file \"%s\".\n",filename);
-				ERROR(msg);
+				ERROR("Syntax error in file \"%s\".\n",filename);
 				EXIT(1);
 			}
 			step=2;
@@ -264,9 +258,7 @@ void load_sprite(char * filename,struct sprite *s)
 			case 'a':
 			if (step!=2)
 			{
-				char msg[256];
-				snprintf(msg,256,"Syntax error in file \"%s\".\n",filename);
-				ERROR(msg);
+				ERROR("Syntax error in file \"%s\".\n",filename);
 				EXIT(1);
 			}
 			step=3;
@@ -293,9 +285,7 @@ void load_sprite(char * filename,struct sprite *s)
 			case 's':
 			if (step!=3)
 			{
-				char msg[256];
-				snprintf(msg,256,"Syntax error in file \"%s\".\n",filename);
-				ERROR(msg);
+				ERROR("Syntax error in file \"%s\".\n",filename);
 				EXIT(1);
 			}
 			step=4;
@@ -304,10 +294,7 @@ void load_sprite(char * filename,struct sprite *s)
 				x=strtol(p,&q,0);
 				if (x<0||x>CURP)
 				{
-					char txt[256];
-
-					snprintf(txt,256,"Error loading sprite \"%s\". Undefined position %d.\n",filename,x);
-					ERROR(txt);
+					ERROR("Error loading sprite \"%s\". Undefined position %d.\n",filename,x);
 					EXIT(1);
 				}
 				if (!(s->n_steps))s->steps=DUMMY;
@@ -324,9 +311,7 @@ void load_sprite(char * filename,struct sprite *s)
 
 			default:
 			{
-				char msg[256];
-				snprintf(msg,256,"Syntax error in file \"%s\"!\n",filename);
-				ERROR(msg);
+				ERROR("Syntax error in file \"%s\"!\n",filename);
 				EXIT(1);
 			}
 		}
@@ -334,9 +319,7 @@ skip:  ;
 	}
 	if (step!=4)
 	{
-		char msg[256];
-		snprintf(msg,256,"Unexpected end of file in \"%s\".\n",filename);
-		ERROR(msg);
+		ERROR("Unexpected end of file in \"%s\".\n",filename);
 		EXIT(1);
 	}
 	fclose(f);

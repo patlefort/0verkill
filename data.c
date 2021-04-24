@@ -202,9 +202,7 @@ void load_data(char * filename)
  if (!fopen_s(&stream,filename,"rb"))
 #endif
  {
-	char msg[256];
- 	snprintf(msg,256,"Can't open file \"%s\"!\n",filename);
-	ERROR(msg);
+	ERROR("Can't open file \"%s\"!\n",filename);
 	EXIT(1);
  }
  while(fgets(line,1024,stream))
@@ -217,9 +215,7 @@ void load_data(char * filename)
   _skip_ws(&p);
   if ((t=_convert_type(*p))<0)
   {
-	char msg[256];
-  	snprintf(msg,256,"Unknown object type '%c'.\n",*p);
-	ERROR(msg);
+	ERROR("Unknown object type '%c'.\n",*p);
 	EXIT(1);
   }
   p++;
@@ -229,9 +225,7 @@ void load_data(char * filename)
   y=strtol(q,&p,0);
   if (find_sprite(name,&n))
   {
-	char msg[256];
-  	snprintf(msg,256,"Unknown bitmap name \"%s\"!\n",name);
-	ERROR(msg);
+	ERROR("Unknown bitmap name \"%s\"!\n",name);
 	EXIT(1);
   }
   _put_sprite(AREA_X,AREA_Y,area,area_a,x,y,sprites[n].positions,t,0);
@@ -256,9 +250,7 @@ void load_sprites(char * filename)
  if((err = fopen_s(&stream,filename,"rb")) != 0)
 #endif
  {
- 	char msg[256];
-	snprintf(msg,256,"Can't open file \"%s\"!\n",filename);
-	ERROR(msg);
+	ERROR("Can't open file \"%s\"!\n",filename);
 	EXIT(1);
  }
  while(fgets(line,1024,stream))

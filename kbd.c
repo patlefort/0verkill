@@ -137,8 +137,7 @@ int os2_read_mon(unsigned char *data, int len)
 int my_getchar(void)
 {
 	unsigned char a;
-	ssize_t ret = 0;
-	ret = read(0,&a,1);
+	read(0,&a,1);
 	return a;
 }
 

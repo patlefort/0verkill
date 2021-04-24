@@ -1736,7 +1736,7 @@ void print_error(char *text)
 /* draw initial screen */
 void menu_screen(struct config *cfg)
 {
-	char txt[8];
+	char txt[32];
 	int sprite,anim=0,title_anim=0,bulge_anim=0;
 	unsigned long_long t;
 	char port[MAX_PORT_LEN+1];
@@ -1759,11 +1759,9 @@ void menu_screen(struct config *cfg)
 	snprintf(txt, sizeof(txt), "hero%d",cfg->color);
 	if (find_sprite(txt,&sprite))
 	{
-		char msg[256];
 		mem_free(banner);
 		shut_down(0);
-		snprintf(msg,256,"Error: Can't find sprite \"%s\".\n",txt);
-		ERROR(msg);
+		ERROR("Error: Can't find sprite \"%s\".\n",txt);
 		EXIT(1);
 	}
 	
