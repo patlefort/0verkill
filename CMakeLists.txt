@@ -10,7 +10,8 @@ include(CheckStructHasMember)
 include(FindPkgConfig)
 
 option(WITH_X "Also build X version." ON)
-set(BASE_DIR "${CMAKE_INSTALL_DATADIR}/0verkill" CACHE STRING "Data directory.")
+set(BASE_DIR "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}/0verkill" CACHE STRING "Data directory.")
+message(STATUS "BASE_DIR: ${BASE_DIR}")
 
 check_function_exists(gettimeofday HAVE_GETTIMEOFDAY)
 check_function_exists(select HAVE_SELECT)
