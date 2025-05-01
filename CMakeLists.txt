@@ -6,6 +6,7 @@ project(0verkill C)
 include(GNUInstallDirs)
 include(CheckFunctionExists)
 include(CheckIncludeFile)
+include(CheckStructHasMember)
 include(FindPkgConfig)
 
 option(WITH_X "Also build X version." ON)
@@ -19,6 +20,8 @@ check_function_exists(getopt HAVE_GETOPT)
 check_function_exists(psignal HAVE_PSIGNAL)
 check_function_exists(access HAVE_ACCESS)
 
+check_include_file(fcntl.h HAVE_FCNTL_H)
+check_include_file(float.h HAVE_FLOAT_H)
 check_include_file(inttypes.h HAVE_INTTYPES_H)
 check_include_file(linux/kd.h HAVE_LINUX_KD_H)
 check_include_file(linux/vt.h HAVE_LINUX_VT_H)
@@ -36,8 +39,11 @@ check_include_file(sys/time.h HAVE_SYS_TIME_H)
 check_include_file(sys/types.h HAVE_SYS_TYPES_H)
 check_include_file(unistd.h HAVE_UNISTD_H)
 
+check_struct_has_member("struct tm" tm_sec "sys/time.h" TM_IN_SYS_TIME LANGUAGE C)
+
 pkg_check_modules(BSD REQUIRED IMPORTED_TARGET libbsd)
 pkg_check_modules(NSL REQUIRED IMPORTED_TARGET libnsl)
+find_package(Threads)
 
 configure_file(config.h.in config.h)
 
@@ -47,6 +53,10 @@ add_executable(${PROJECT_NAME} client.c data.c sprite.c blit.c console.c hash.c 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 target_compile_definitions(${PROJECT_NAME} PRIVATE BASE_DIR="${BASE_DIR}")
 target_link_libraries(${PROJECT_NAME} PkgConfig::BSD PkgConfig::NSL m)
+if(TARGET Threads::Threads)
+	target_link_libraries(${PROJECT_NAME} Threads::Threads)
+	target_compile_definitions(${PROJECT_NAME} PRIVATE HAVE_LIBPTHREAD)
+endif()
 install(TARGETS ${PROJECT_NAME} RUNTIME COMPONENT runtime)
 
 # x0verkill target
@@ -57,6 +67,10 @@ if(WITH_X)
 	target_include_directories(x${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 	target_compile_definitions(x${PROJECT_NAME} PRIVATE BASE_DIR="${BASE_DIR}" XWINDOW)
 	target_link_libraries(x${PROJECT_NAME} PkgConfig::BSD PkgConfig::NSL m X11::Xpm)
+	if(TARGET Threads::Threads)
+		target_link_libraries(x${PROJECT_NAME} Threads::Threads)
+		target_compile_definitions(x${PROJECT_NAME} PRIVATE HAVE_LIBPTHREAD)
+	endif()
 	install(TARGETS x${PROJECT_NAME} RUNTIME COMPONENT runtime)
 endif()
 

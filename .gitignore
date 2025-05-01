@@ -1,5 +1,4 @@
 configure
-config.h.in
 config.status
 
 Makefile
