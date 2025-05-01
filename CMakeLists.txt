@@ -108,3 +108,7 @@ add_executable(${PROJECT_NAME}-test_server test_server.c net.c data.c crc32.c bl
 target_include_directories(${PROJECT_NAME}-test_server PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 target_compile_definitions(${PROJECT_NAME}-test_server PRIVATE BASE_DIR="${BASE_DIR}")
 install(TARGETS ${PROJECT_NAME}-test_server RUNTIME COMPONENT runtime)
+
+# Install data
+install(DIRECTORY "data" DESTINATION "${BASE_DIR}")
+install(DIRECTORY "grx" DESTINATION "${BASE_DIR}")
